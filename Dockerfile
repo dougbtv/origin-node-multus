@@ -10,6 +10,7 @@ RUN ./build
 # -------- Import stage.
 FROM openshift/node
 COPY --from=0 /usr/src/multus-cni/bin/multus /opt/cni/bin
+ADD multus.conf /multus.conf
 
 LABEL io.k8s.display-name="OpenShift Origin Node" \
       io.k8s.description="This is a component of OpenShift Origin and contains the software for individual nodes when using SDN (with Multus)." \
@@ -18,4 +19,4 @@ LABEL io.k8s.display-name="OpenShift Origin Node" \
 VOLUME /etc/origin/node
 ENV KUBECONFIG=/etc/origin/node/node.kubeconfig
 
-ENTRYPOINT [ "/usr/local/bin/origin-node-run.sh" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
