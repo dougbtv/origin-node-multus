@@ -4,4 +4,4 @@
 # instead of the OpenShift SDN configuration for CNI
 # It runs that, then runs the real entrypoint script.
 ./watcher.sh &> /dev/null &
-/usr/local/bin/origin-node-run.sh
+/usr/local/bin/origin-node-run.sh "$@"
