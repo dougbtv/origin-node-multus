@@ -14,7 +14,7 @@ RUN ./build.sh
 # -------- Import stage.
 FROM openshift/node
 COPY --from=0 /usr/src/multus-cni/bin/multus /opt/cni/bin
-COPY --from=0 /usr/src/plugins/bin/* /opt/cni/bin
+COPY --from=0 /usr/src/plugins/bin/* /opt/cni/bin/
 ADD multus.conf /multus.conf
 ADD watcher.sh /watcher.sh
 ADD entrypoint.sh /entrypoint.sh
