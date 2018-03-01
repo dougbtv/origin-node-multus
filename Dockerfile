@@ -11,6 +11,7 @@ RUN ./build
 FROM openshift/node
 COPY --from=0 /usr/src/multus-cni/bin/multus /opt/cni/bin
 ADD multus.conf /multus.conf
+ADD watcher.sh /watcher.sh
 ADD entrypoint.sh /entrypoint.sh
 
 LABEL io.k8s.display-name="OpenShift Origin Node" \
