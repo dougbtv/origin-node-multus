@@ -6,10 +6,15 @@ RUN yum install -y git golang
 RUN git clone https://github.com/Intel-Corp/multus-cni.git /usr/src/multus-cni
 WORKDIR /usr/src/multus-cni
 RUN ./build
+WORKDIR /
+RUN git clone https://github.com/containernetworking/plugins.git /usr/src/plugins
+WORKDIR /usr/src/plugins
+RUN ./build.sh
 
 # -------- Import stage.
 FROM openshift/node
 COPY --from=0 /usr/src/multus-cni/bin/multus /opt/cni/bin
+COPY --from=0 /usr/src/plugins/bin/* /opt/cni/bin
 ADD multus.conf /multus.conf
 ADD watcher.sh /watcher.sh
 ADD entrypoint.sh /entrypoint.sh
