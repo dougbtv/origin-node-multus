@@ -9,3 +9,12 @@ Ideally deployable through openshift-ansible [by modifying the osn_image variabl
 ---
 
 
+## Cheatsheet
+
+You can build/tag/push with the included `Makefile`, well, especially if you're Doug.
+
+```
+make build
+make tag
+make push
+```
