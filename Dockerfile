@@ -12,7 +12,7 @@ WORKDIR /usr/src/plugins
 RUN ./build.sh
 
 # -------- Import stage.
-FROM openshift/node
+FROM openshift/node:v3.9
 COPY --from=0 /usr/src/multus-cni/bin/multus /opt/cni/bin
 COPY --from=0 /usr/src/plugins/bin/* /opt/cni/bin/
 ADD multus.conf /multus.conf
