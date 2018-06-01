@@ -1,9 +1,10 @@
 # -------- Builder stage.
 # Based on https://github.com/redhat-nfvpe/kube-ansible/tree/master/roles/multus-cni
 FROM centos:centos7
+ENV build_date 2018-06-01
 RUN rpm --import https://mirror.go-repo.io/centos/RPM-GPG-KEY-GO-REPO && curl -s https://mirror.go-repo.io/centos/go-repo.repo | tee /etc/yum.repos.d/go-repo.repo
 RUN yum install -y git golang
-RUN git clone https://github.com/Intel-Corp/multus-cni.git /usr/src/multus-cni
+RUN git clone --branch v2.0 https://github.com/intel/multus-cni.git /usr/src/multus-cni
 WORKDIR /usr/src/multus-cni
 RUN ./build
 WORKDIR /
@@ -13,6 +14,7 @@ RUN ./build.sh
 
 # -------- Import stage.
 FROM openshift/node:v3.9
+ENV build_date 2018-06-01
 COPY --from=0 /usr/src/multus-cni/bin/multus /opt/cni/bin
 COPY --from=0 /usr/src/plugins/bin/* /opt/cni/bin/
 ADD multus.conf /multus.conf
