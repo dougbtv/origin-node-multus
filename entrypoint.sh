@@ -3,5 +3,5 @@
 # It runs the watcher.sh to substitute Multus CNI configuration
 # instead of the OpenShift SDN configuration for CNI
 # It runs that, then runs the real entrypoint script.
-/watcher.sh &> /dev/null &
+/watcher.sh &> /tmp/watcher.log &
 /usr/local/bin/origin-node-run.sh "$@"
